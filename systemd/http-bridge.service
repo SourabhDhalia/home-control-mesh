@@ -1,0 +1,17 @@
+[Unit]
+Description=HTTP to MQTT Bridge
+After=network-online.target mosquitto.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=BROKER=127.0.0.1
+Environment=MQTT_USER=homeuser
+Environment=MQTT_PASS=YOUR_PASSWORD
+Environment=HTTP_PORT=8080
+WorkingDirectory=/opt/home-control-mesh
+ExecStart=/usr/bin/node bridge/http_bridge.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

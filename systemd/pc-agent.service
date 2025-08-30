@@ -1,0 +1,18 @@
+[Unit]
+Description=PC MQTT Agent
+After=network-online.target mosquitto.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=BROKER=127.0.0.1
+Environment=MQTT_USER=homeuser
+Environment=MQTT_PASS=YOUR_PASSWORD
+Environment=ROOM=office
+Environment=DEVICE_ID=deskpc
+WorkingDirectory=/opt/home-control-mesh
+ExecStart=/usr/bin/python3 agents/pc_agent.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
